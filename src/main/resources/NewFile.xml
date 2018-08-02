@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urls>
+    <!-- <url> -->
+    <!-- <matcher host="search.51job.com" path="/jobsearch/search_result.php" /> -->
+    <!-- <processors> -->
+    <!-- <processor select="#resultList > div:nth-child(4) > p > span > a" op="grab" tag="href" /> -->
+    <!-- <processor select="body > div.dw_wp > div.dw_page > div > div > div > ul > li > a" op="grab" tag="href" /> -->
+    <!-- </processors> -->
+    <!-- </url> -->
+    <!-- <url> -->
+    <!-- <saver val="SaveToFile" path="/data/app/iter/51job.data"/> -->
+    <!-- <matcher host="jobs.51job.com" path="/\w+-?\w+/\d+\.html" /> -->
+    <!-- <processors> -->
+    <!-- <processor select="#job_recommend > div > a.name" op="grab" tag="href"/> -->
+
+    <!-- <processor select="body > div.tCompanyPage > div.tCompany_center.clearfix > div.tHeader.tHjob > div > div.cn > p.cname > a" op="save" tag="companyName"/> -->
+    <!-- <processor select="body > div.tCompanyPage > div.tCompany_center.clearfix > div.tHeader.tHjob > div > div.cn > strong" op="save" tag="salary"/> -->
+    <!-- <processor select="body > div.tCompanyPage > div.tCompany_center.clearfix > div.tCompany_main > div:nth-child(4) > div" op="save" tag="content"/> -->
+    <!-- <processor select="body > div.tCompanyPage > div.tCompany_center.clearfix > div.tCompany_main > div.tBorderTop_box.bt > div > div > span" op="save"
+      tag="tags"/> -->
+    <!-- <processor select="body > div.tCompanyPage > div.tCompany_center.clearfix > div.tCompany_main > div:nth-child(5) > div > p" op="save" tag="address"/> -->
+    <!-- <processor select="body > div.tCompanyPage > div.tCompany_center.clearfix > div.tCompany_main > div.tBorderTop_box.bt > div > p > span" op="save"
+      tag="welfares"/> -->
+    <!-- <processor select="body > div.tCompanyPage > div.tCompany_center.clearfix > div.tHeader.tHjob > div > div.cn > h1" op="save" tag="job"/> -->
+    <!-- <processor op="appendInfo" tag="from" val="url"/> -->
+    <!-- </processors> -->
+    <!-- </url> -->
+    <!-- <url> -->
+    <!-- <saver val="SaveToFile" path="/data/app/iter/lagou.data"/> -->
+    <!-- <matcher host="www.lagou.com" path="/jobs/\d+.html" /> -->
+    <!-- <processors> -->
+    <!-- <processor select="#resultList > div:nth-child(4) > p > span > a" op="grab" tag="href" /> -->
+    <!-- <processor select="#jobs_similar_detail > ul > li > a" op="grab" tag="href"/> -->
+
+    <!-- <processor select="#job_detail > dt > h1 > div" op="save" tag="job" /> -->
+    <!-- <processor select="#job_detail > dd.job_bt" op="save" tag="content"/> -->
+    <!-- <processor select="#job_detail > dd.job_request > p:nth-child(2)" op="save" tag="tags"/> -->
+    <!-- <processor select="#container > div.content_r > dl > dd > div.work_addr" op="save" tag="address"/> -->
+    <!-- <processor select="#job_detail > dd.job_request > p:nth-child(1) > span.red" op="save" tag="salary"/> -->
+    <!-- <processor select="#container > div.content_r > dl > dt > a > div > h2" op="save" tag="companyName"/> -->
+    <!-- <processor op="appendInfo" tag="from" val="url"/> -->
+    <!-- </processors> -->
+    <!-- </url> -->
+    <!-- <url> -->
+    <!-- <matcher host="www.lagou.com" path="/jobs/list_.+" /> -->
+    <!-- <processors> -->
+    <!-- <processor select="#s_position_list > ul > li.con_list_item.first_row > div.list_item_top > div.position > div.p_top > a" op="grab" tag="href" /> -->
+    <!-- <processor select="#job_detail > dt > h1 > div" op="save" tag="href" /> -->
+    <!-- </processors> -->
+    <!-- </url> -->
+    <!-- <url> -->
+    <!-- <matcher host="sou.zhaopin.com" path="/jobs/searchresult.ashx"/> -->
+    <!-- <processors> -->
+    <!-- <processor select="#newlist_list_content_table > table:nth-child(2) > tbody > tr:nth-child(1) > td.zwmc > div > a" op="grab" tag="href"/> -->
+    <!-- <processor select="body > div.main > div.search_newlist_main > div.newlist_main > form > div.clearfix > div.newlist_wrap.fl > div.pagesDown > ul
+      > li > a" op="grab" tag="href"/> -->
+    <!-- </processors> -->
+    <!-- </url> -->
+    <!-- <url> -->
+    <!-- <saver val="SaveToFile" path="/data/app/iter/zhaopin.data"/> -->
+    <!-- <matcher host="jobs.zhaopin.com" path="/\d+.htm"/> -->
+    <!-- <processors> -->
+    <!-- <processor select="#myform2 > ul > li:nth-child(1) > p.pone > a" op="grab" tag="href"/> -->
+    <!-- <processor select="#myform1 > ul > li:nth-child(1) > p.pone > a" op="grab" tag="href"/> -->
+
+    <!-- <processor select="body > div:nth-child(7) > div.fixed-inner-box > div.fl > h1" op="save" tag="job"/> -->
+    <!-- <processor select="body > div:nth-child(7) > div.fixed-inner-box > div.fl > h2 > a" op="save" tag="companyName"/> -->
+    <!-- <processor select="body > div.terminalpage.clearfix > div.terminalpage-left > ul > li:nth-child(1) > strong" op="save" tag="salary"/> -->
+    <!-- <processor select="body > div.terminalpage.clearfix > div.terminalpage-left > div.terminalpage-main.clearfix > div > div:nth-child(1) > div" op="save"
+      tag="content"/> -->
+    <!-- <processor select="body > div.terminalpage.clearfix > div.terminalpage-left > div.terminalpage-main.clearfix > div > div:nth-child(1) > h2" op="save"
+      tag="address"/> -->
+    <!-- <processor select="body > div:nth-child(7) > div.fixed-inner-box > div.fl > div > span" op="save" tag="tags"/> -->
+    <!-- <processor op="appendInfo" tag="from" val="url"/> -->
+    <!-- </processors> -->
+    <!-- </url> -->
+    <!-- <url> -->
+    <!-- <saver val="SaveToFile" path="/data/app/iter/xiaoshuo.index"/> -->
+    <!-- <matcher host="www.kanshuge.com" path="/files/article/html/\d+/\d+/"/> -->
+    <!-- <processors> -->
+    <!-- <processor select="#title > h1" op="save" tag="book"/> -->
+    <!-- <processor select="body > table.acss > tbody > tr > td > a" op="save" tag="index"/> -->
+    <!-- </processors> -->
+    <!-- </url> -->
+    <!-- <url> -->
+    <!-- <saver val="SaveToFile" path="/data/app/iter/xiaoshuo.data"/> -->
+    <!-- <matcher host="www.kanshuge.com" path="/files/article/html/\d+/\d+/\d+\.html"/> -->
+    <!-- <processors> -->
+    <!-- <processor select="#header > div.crumbs > div.fl > a:nth-child(5)" op="save" tag="book"/> -->
+    <!-- <processor select="#BookCon > h1" op="save" tag="title"/> -->
+    <!-- <processor select="#BookText" op="save" tag="content"/> -->
+    <!-- </processors> -->
+    <!-- </url> -->
+    <!-- <url> -->
+    <!-- <saver val="SaveToFile" path="/data/app/iter/xiaoshuo.index"/> -->
+    <!-- <matcher host="quanben-xiaoshuo.com" path="/xiaoshuo/\d+/\w+\.html"/> -->
+    <!-- <processors> -->
+    <!-- <processor select="body > div:nth-child(3) > div > div > h1" op="save" tag="book"/> -->
+    <!-- <processor select="body > div:nth-child(3) > div > div > div.content2 > div.chapter > ul > li:nth-child(1) > a > span" op="save" tag="index"/> -->
+
+    <!-- <processor select="body > div:nth-child(3) > div > div > div.content2 > div.chapter > ul > li:nth-child(1) > a" op="grab" tag="href"/> -->
+    <!-- </processors> -->
+    <!-- </url> -->
+    <!-- <url> -->
+    <!-- <saver val="SaveToFile" path="/data/app/iter/xiaoshuo.data"/> -->
+    <!-- <matcher host="quanben-xiaoshuo.com" path="/read/\d+/tianjielianxianlu/\d+/\d+\.html"/> -->
+    <!-- <processors> -->
+    <!-- <processor select="body > div:nth-child(3) > div > div > div.short_chap.tc > a.button_1.s1" op="grab" tag="href"/> -->
+
+    <!-- <processor select="body > div:nth-child(3) > div > div > div.content_info > span:nth-child(1) > a > strong" op="save" tag="book"/> -->
+    <!-- <processor select="body > div:nth-child(3) > div > div > h1" op="save" tag="title"/> -->
+    <!-- <processor select="#articlebody" op="save" tag="content"/> -->
+    <!-- </processors> -->
+    <!-- </url> -->
+    <!--   <url> -->
+    <!--     <saver val="SaveToFile" path="/data/app/iter/yasi.dic" /> -->
+    <!--     <matcher host="ielts.koolearn.com" path="/20140411/785955\.html" /> -->
+    <!--     <processors> -->
+    <!--       <processor xpath="//*[@id=&apos;cr&apos;]/div[1]/div[5]/div[1]/table/tbody/tr/td/p/span/a" op="grab" tag="href" /> -->
+    <!--     </processors> -->
+    <!--   </url> -->
+    <!-- <url> -->
+    <!-- <saver val="SaveToFile" path="/data/app/iter/yasi.dic"/> -->
+    <!-- <matcher host="ielts.koolearn.com" path="/20140411/7859\d+\.html\?pc_hash=ROYWT5"/> -->
+    <!-- <processors> -->
+    <!-- <processor xpath="//*[@id=&apos;page&apos;]/a" op="grab" tag="href"/> -->
+    <!-- <processor xpath="//*[@id=&apos;cr&apos;]/div[1]/div[5]/div[1]" op="save" tag="content"/> -->
+    <!-- </processors> -->
+    <!-- </url> -->
+    <url>
+        <saver val="name.dengchao.spider.saveto.SaveToFile" path="/data/app/iter/xiaohuasheng.dic"/>
+        <matcher host="www.xiaohuasheng.cn" path="/read/userbooklist_\d{0,1000000}"/>
+        <processors>
+            <processor xpath="/html/body/div[5]/div[2]/div/table/tbody/tr/td[1]/div/div[3]/div[*]/div[1]/a" op="save" tag="content"/>
+            <processor xpath="/html/body/div[5]/div[2]/div/table/tbody/tr/td[3]/div[2]/div[*]/a" op="grab" tag="href"/>
+        </processors>
+    </url>
+<!--    <url>
+        <saver val="SaveToEs" path="arch/article"/>
+        <matcher host="www.chinadaily.com.cn" path="index\.html"/>
+        <processors>
+            <processor xpath="/html/body/div[5]/div[1]/div[5]/div[1]/div/p/a" op="grab" tag="href"/>
+            &lt;!&ndash;       <processor xpath="//*[@id=&apos;cr&apos;]/div[1]/div[5]/div[1]" op="save" tag="content" /> &ndash;&gt;
+        </processors>
+    </url>
+    <url>
+        <saver val="SaveToEs" path="arch/article"/>
+        <matcher host="www.chinadaily.com.cn" path="/\w+/\d{4}-\d{2}/\d{2}/content_\d+\.htm"/>
+        <processors>
+            <processor xpath="//*[@id=&apos;Content&apos;]" op="save" tag="content"/>
+            <processor xpath="/html/body/div[5]/div[1]/div[4]/ul/li/a" op="grab" tag="href"/>
+        </processors>
+    </url>-->
+</urls>

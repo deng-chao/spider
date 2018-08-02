@@ -1,0 +1,10 @@
+/target/
+/.settings/
+/.classpath
+/.project
+/logs/
+.externalToolBuilders/
+/.DS_Store
+.idea/
+spider.iml
+logs/
