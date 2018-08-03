@@ -1,11 +1,13 @@
 package name.dengchao.spider.spider;
 
 import com.alibaba.fastjson.JSONObject;
+import com.gargoylesoftware.htmlunit.FailingHttpStatusCodeException;
 import com.gargoylesoftware.htmlunit.WebClient;
 import com.gargoylesoftware.htmlunit.html.HtmlElement;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
 import com.google.common.collect.Multimap;
 import com.google.common.hash.BloomFilter;
+import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import name.dengchao.spider.domain.Processor;
@@ -20,6 +22,7 @@ import org.springframework.util.StreamUtils;
 import javax.annotation.Resource;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.IOException;
 import java.net.URI;
 import java.nio.charset.StandardCharsets;
 import java.util.*;
@@ -39,6 +42,7 @@ public class Spider implements InitializingBean, Runnable {
 
     public long visitedUrlCnt = 0;
 
+    @Getter
     @Resource(name = "urlQueue")
     private BlockingQueue<String> toVisitUrls;
 
@@ -91,8 +95,16 @@ public class Spider implements InitializingBean, Runnable {
                 log.warn("No parser matched, skip url: " + url);
                 continue;
             }
-            HtmlPage page = webClient.getPage(url);
-            Thread.sleep(1000);
+            HtmlPage page;
+            try {
+                page = webClient.getPage(url);
+            } catch (Exception e) {
+                continue;
+            }
+            if (page == null) {
+                continue;
+            }
+            Thread.sleep(500);
             List<Processor> processors = urlParser.getProcessors();
             JSONObject json = new JSONObject();
             json.put("url", url);

@@ -8,31 +8,31 @@ import lombok.Data;
 @XStreamAlias("processor")
 public class Processor {
 
-	@XStreamAsAttribute
-	String xpath;
+    @XStreamAsAttribute
+    String xpath;
 
-	@XStreamAsAttribute
-	String op;
-	
-	@XStreamAsAttribute
-	String tag;
-	
-	@XStreamAsAttribute
-	String val;
-	
-	public String getXpath() {
+    @XStreamAsAttribute
+    String op;
+
+    @XStreamAsAttribute
+    String tag;
+
+    @XStreamAsAttribute
+    String val;
+
+    public String getXpath() {
         return xpath;
     }
 
     public String getOp() {
-		return op;
-	}
+        return op;
+    }
 
-	public String getTag() {
-		return tag;
-	}
+    public String getTag() {
+        return tag;
+    }
 
-  public String getVal() {
-    return val;
-  }
+    public String getVal() {
+        return val;
+    }
 }

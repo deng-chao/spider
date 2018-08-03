@@ -15,9 +15,9 @@ public class SaveToFile implements SaveTo {
 
     @Override
     public void save(JSONObject json) throws Exception {
-        if (json.getString("content") == null) {
-            return;
-        }
+//        if (json.getString("content") == null) {
+//            return;
+//        }
         String toWrite = json.toJSONString() + System.lineSeparator();
         if (!Files.exists(p)) {
             Files.createFile(p);
