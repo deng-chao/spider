@@ -1,7 +1,6 @@
 package name.dengchao.spider.spider;
 
 import com.alibaba.fastjson.JSONObject;
-import com.gargoylesoftware.htmlunit.FailingHttpStatusCodeException;
 import com.gargoylesoftware.htmlunit.WebClient;
 import com.gargoylesoftware.htmlunit.html.HtmlElement;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
@@ -22,7 +21,6 @@ import org.springframework.util.StreamUtils;
 import javax.annotation.Resource;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.IOException;
 import java.net.URI;
 import java.nio.charset.StandardCharsets;
 import java.util.*;
@@ -149,6 +147,9 @@ public class Spider implements InitializingBean, Runnable {
             } else {
                 json.put(processor.getTag(), anchor.getTextContent());
             }
+        } else if (processor.getOp().equals("pic")) {
+            String data = anchor.getAttribute("src");
+            json.put(processor.getTag(), data);
         }
     }
 
