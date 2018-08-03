@@ -146,6 +146,9 @@
             <processor xpath="/html/body/div[5]/div[2]/div/table/tbody/tr/td[1]/div/div/div[2]/div[1]" op="save" tag="author"/>
             <processor xpath="/html/body/div[5]/div[2]/div/table/tbody/tr/td[1]/div/div/div[2]/div[2]" op="save" tag="press"/>
             <processor xpath="/html/body/div[5]/div[2]/div/table/tbody/tr/td[1]/div/div/div[2]/div[3]" op="save" tag="isbn"/>
+            <processor xpath="/html/body/div[5]/div[2]/div/table/tbody/tr/td[3]/div[1]/img" op="saveUrl" tag="imageUrl"/>
+            <processor xpath="/html/body/div[5]/div[2]/div/table/tbody/tr/td[1]/div/div/div[1]" op="save" tag="title"/>
+            <processor xpath="/html/body/div[5]/div[2]/div/table/tbody/tr/td[3]/div[3]" op="save" tag="Evaluation"/>
             <processor xpath="//*[@id='bookDescriptionShort']" op="save" tag="desc"/>
             <!--<processor xpath="/html/body/div[5]/div[2]/div/table/tbody/tr/td[3]/div[2]/div[*]/a" op="grab" tag="href"/>-->
         </processors>

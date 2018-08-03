@@ -140,14 +140,20 @@ public class Spider implements InitializingBean, Runnable {
                 log.debug("Skip visited link: " + toVisitLink);
             }
         } else if (processor.getOp().equals("save")) {
-            String data = json.getString(processor.getTag());
+            Object data = json.get(processor.getTag());
             if (data != null) {
-                data = data + ",#!#~, " + anchor.getTextContent();
-                json.put(processor.getTag(), data);
+                if (data instanceof List) {
+                    ((List) data).add(anchor.getTextContent());
+                } else if (data instanceof String) {
+                    List<String> list = new ArrayList<>();
+                    list.add(String.valueOf(data));
+                    list.add(anchor.getTextContent());
+                    json.put(processor.getTag(), list);
+                }
             } else {
                 json.put(processor.getTag(), anchor.getTextContent());
             }
-        } else if (processor.getOp().equals("pic")) {
+        } else if (processor.getOp().equals("saveUrl")) {
             String data = anchor.getAttribute("src");
             json.put(processor.getTag(), data);
         }
