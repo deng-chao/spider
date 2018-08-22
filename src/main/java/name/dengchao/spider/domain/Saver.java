@@ -2,31 +2,30 @@ package name.dengchao.spider.domain;
 
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 import com.thoughtworks.xstream.annotations.XStreamAsAttribute;
-
 import name.dengchao.spider.saveto.SaveTo;
 
 @XStreamAlias("saver")
 public class Saver {
 
-	@XStreamAsAttribute
-	private SaveTo val;
-	
-	@XStreamAsAttribute
-	private String path;
+    @XStreamAsAttribute
+    private SaveTo val;
 
-	public SaveTo getVal() {
-		return val;
-	}
+    @XStreamAsAttribute
+    private String path;
 
-	public void setVal(SaveTo val) {
-		this.val = val;
-	}
+    public SaveTo getVal() {
+        return val;
+    }
 
-	public String getPath() {
-		return path;
-	}
+    public void setVal(SaveTo val) {
+        this.val = val;
+    }
 
-	public void setPath(String path) {
-		this.path = path;
-	}
+    public String getPath() {
+        return path;
+    }
+
+    public void setPath(String path) {
+        this.path = path;
+    }
 }

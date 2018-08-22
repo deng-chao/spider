@@ -10,12 +10,14 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import name.dengchao.spider.domain.Processor;
+import name.dengchao.spider.domain.ToVisitLink;
 import name.dengchao.spider.domain.Url;
 import name.dengchao.spider.domain.UrlMatcher;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
 import org.springframework.util.StreamUtils;
 
 import javax.annotation.Resource;
@@ -32,20 +34,21 @@ import java.util.regex.Pattern;
 @Service
 public class Spider implements InitializingBean, Runnable {
 
+    final WebClient webClient = new WebClient();
+    public long visitedUrlCnt = 0;
     @Resource(name = "urlMap")
     Multimap<UrlMatcher, Url> map;
-
     @Autowired
     BloomFilter<CharSequence> filter;
-
-    public long visitedUrlCnt = 0;
-
     @Getter
     @Resource(name = "urlQueue")
-    private BlockingQueue<String> toVisitUrls;
-
+    private BlockingQueue<ToVisitLink> toVisitUrls;
     @Value("#{iter['counter.path']}")
     private String counterPath;
+    private ThreadLocal<Map<String, String>> params = new ThreadLocal<>();
+
+    @Setter
+    private volatile boolean goon = true;
 
     @Override
     public void afterPropertiesSet() throws Exception {
@@ -61,13 +64,6 @@ public class Spider implements InitializingBean, Runnable {
         }
     }
 
-    private ThreadLocal<Map<String, String>> params = new ThreadLocal<>();
-
-    @Setter
-    private volatile boolean goon = true;
-
-    final WebClient webClient = new WebClient();
-
     public void start() throws Exception {
 
         webClient.getOptions().setJavaScriptEnabled(true);
@@ -82,12 +78,12 @@ public class Spider implements InitializingBean, Runnable {
         }
 
         while (goon) {
-            String url = toVisitUrls.take();
-            if (filter.mightContain(url)) {
+            ToVisitLink url = toVisitUrls.take();
+            if (filter.mightContain(url.getUrl())) {
                 continue;
             }
-            params.get().put("url", url);
-            URI uri = URI.create(url);
+            params.get().put("url", url.getUrl());
+            URI uri = URI.create(url.getUrl());
             Url urlParser = findParser(uri);
             if (urlParser == null) {
                 log.warn("No parser matched, skip url: " + url);
@@ -95,21 +91,27 @@ public class Spider implements InitializingBean, Runnable {
             }
             HtmlPage page;
             try {
-                page = webClient.getPage(url);
+                page = webClient.getPage(url.getUrl());
             } catch (Exception e) {
                 continue;
             }
-            if (page == null) {
+            if (page == null || page.getWebResponse().getStatusCode() > 400) {
                 continue;
             }
-            Thread.sleep(500);
             List<Processor> processors = urlParser.getProcessors();
             JSONObject json = new JSONObject();
-            json.put("url", url);
+            json.put("url", url.getUrl());
             json.put("date", new Date());
+            json.put("from", url.getFrom());
             for (Processor processor : processors) {
                 if (processor.getXpath() != null) {
                     List<?> eles = page.getByXPath(processor.getXpath());
+                    long waitTime = 0;
+                    while (processor.isRequire() && CollectionUtils.isEmpty(eles) && isNotTimeout(waitTime)) {
+                        Thread.sleep(200);
+                        waitTime = waitTime + 200;
+                        eles = page.getByXPath(processor.getXpath());
+                    }
                     eles.forEach(e -> processElement(json, processor, e, uri));
                 } else if (processor.getOp().equals("appendInfo")) {
                     json.put(processor.getTag(), params.get().get(processor.getVal()));
@@ -119,7 +121,7 @@ public class Spider implements InitializingBean, Runnable {
                 log.debug(json.toJSONString());
                 urlParser.getSaver().getVal().save(json);
             }
-            filter.put(url);
+            filter.put(url.getUrl());
             visitedUrlCnt++;
 //            webClient.close();
         }
@@ -135,7 +137,7 @@ public class Spider implements InitializingBean, Runnable {
             toVisitLink = formatUrl(toVisitLink, processingURI);
             if (!filter.mightContain(toVisitLink)) {
                 log.info("Find to visit link: " + toVisitLink);
-                toVisitUrls.add(toVisitLink);
+                toVisitUrls.add(new ToVisitLink(toVisitLink, processingURI.toString(), new Date()));
             } else {
                 log.debug("Skip visited link: " + toVisitLink);
             }
@@ -228,6 +230,10 @@ public class Spider implements InitializingBean, Runnable {
     }
 
     public void addTovisitUrl(String url) {
-        toVisitUrls.add(url);
+        toVisitUrls.add(new ToVisitLink(url, "manual", new Date()));
+    }
+
+    private boolean isNotTimeout(long time) {
+        return time < 1_000;
     }
 }

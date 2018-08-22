@@ -1,10 +1,10 @@
 package name.dengchao.spider;
 
 import com.google.common.hash.BloomFilter;
+import name.dengchao.spider.spider.Spider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
-import name.dengchao.spider.spider.Spider;
 
 import javax.annotation.Resource;
 import java.io.BufferedWriter;
@@ -16,23 +16,18 @@ import java.util.concurrent.BlockingQueue;
 @Component
 public class MyShutdownHook extends Thread {
 
-    @Resource(name = "urlQueue")
-    private BlockingQueue<String> toVisitUrls;
-
-    @Autowired
-    private BloomFilter<CharSequence> filter;
-
     @Value("#{iter['filter-file.path']}")
     String filterFilePath;
-
     @Value("#{iter['to-visit-url.path']}")
     String toVisitUrlFile;
-
-    @Value("#{iter['counter.path']}")
-    private String counterPath;
-
     @Autowired
     Spider spider;
+    @Resource(name = "urlQueue")
+    private BlockingQueue<String> toVisitUrls;
+    @Autowired
+    private BloomFilter<CharSequence> filter;
+    @Value("#{iter['counter.path']}")
+    private String counterPath;
 
     @Override
     public void run() {

@@ -128,31 +128,44 @@
     <!-- </processors> -->
     <!-- </url> -->
     <url>
-        <saver val="name.dengchao.spider.saveto.SaveToFile" path="/data/app/spider/book_list.dic"/>
-        <matcher host="www.xiaohuasheng.cn" path="/read/userbooklist_\d{0,1000000}"/>
+        <saver val="name.dengchao.spider.saveto.SaveToFile" path="/data/app/spider/t_book_list.dic"/>
+        <matcher host="www.xiaohuasheng.cn" path="/read/booklist_\d{0,1000000}/age_-1"/>
         <processors>
-            <processor xpath="/html/body/div[5]/div[2]/div/table/tbody/tr/td[1]/div/div[1]/div[1]/span" op="save" tag="title"/>
-            <processor xpath="/html/body/div[5]/div[2]/div/table/tbody/tr/td[1]/div/div[1]/div[3]/span" op="save" tag="desc"/>
-            <processor xpath="/html/body/div[5]/div[2]/div/table/tbody/tr/td[1]/div/div[1]/div[2]/span" op="save" tag="tags"/>
-            <processor xpath="/html/body/div[5]/div[2]/div/table/tbody/tr/td[1]/div/div[1]/div[4]/div/div[2]/a" op="save" tag="user"/>
-            <processor xpath="/html/body/div[5]/div[2]/div/table/tbody/tr/td[1]/div/div[1]/div[4]/div/div[3]/span" op="save" tag="time"/>
-            <processor xpath="/html/body/div[5]/div[2]/div/table/tbody/tr/td[1]/div/div[3]/div[*]/div[1]/a" op="grab" tag="href"/>
+            <processor xpath="/html/body/div[5]/div[2]/div/table/tbody/tr/td[1]/div/div/div[1]/div[1]/div/span" op="save" tag="title" require="true"/>
+            <processor xpath="/html/body/div[5]/div[2]/div/table/tbody/tr/td[1]/div/div/div[1]/div[2]/div/span" op="save" tag="desc" require="true"/>
+            <processor xpath="/html/body/div[5]/div[2]/div/table/tbody/tr/td[3]/div[2]/a" op="save" tag="tags" require="true"/>
+            <processor xpath="/html/body/div[5]/div[2]/div/table/tbody/tr/td[1]/div/div/div[3]/div[*]/div[1]/a" op="save" tag="books" require="true"/>
+            <!--<processor xpath="/html/body/div[5]/div[2]/div/table/tbody/tr/td[1]/div/div[3]/div[*]/div[1]/a" op="grab" tag="href" require="false"/>-->
         </processors>
     </url>
-    <url>
+    <!--<url>-->
+        <!--<saver val="name.dengchao.spider.saveto.SaveToFile" path="/data/app/spider/book_list.dic"/>-->
+        <!--<matcher host="www.xiaohuasheng.cn" path="/read/userbooklist_\d{0,1000000}"/>-->
+        <!--<processors>-->
+            <!--<processor xpath="/html/body/div[5]/div[2]/div/table/tbody/tr/td[1]/div/div[1]/div[1]/span" op="save" tag="title" require="true"/>-->
+            <!--<processor xpath="/html/body/div[5]/div[2]/div/table/tbody/tr/td[1]/div/div[1]/div[3]/span" op="save" tag="desc" require="true"/>-->
+            <!--<processor xpath="/html/body/div[5]/div[2]/div/table/tbody/tr/td[1]/div/div[1]/div[2]/span" op="save" tag="tags" require="true"/>-->
+            <!--<processor xpath="/html/body/div[5]/div[2]/div/table/tbody/tr/td[1]/div/div[1]/div[4]/div/div[2]/a" op="save" tag="user"/>-->
+            <!--<processor xpath="/html/body/div[5]/div[2]/div/table/tbody/tr/td[1]/div/div[1]/div[3]/div/div[2]/a" op="save" tag="user"/>-->
+            <!--<processor xpath="/html/body/div[5]/div[2]/div/table/tbody/tr/td[1]/div/div[1]/div[4]/div/div[3]/span" op="save" tag="time" require="true"/>-->
+            <!--<processor xpath="/html/body/div[5]/div[2]/div/table/tbody/tr/td[1]/div/div[1]/div[3]/div/div[3]/span" op="save" tag="time" require="true"/>-->
+            <!--&lt;!&ndash;<processor xpath="/html/body/div[5]/div[2]/div/table/tbody/tr/td[1]/div/div[3]/div[*]/div[1]/a" op="grab" tag="href" require="false"/>&ndash;&gt;-->
+        <!--</processors>-->
+    <!--</url>-->
+<!--    <url>
         <saver val="name.dengchao.spider.saveto.SaveToFile" path="/data/app/spider/book_content.dic"/>
         <matcher host="www.xiaohuasheng.cn" path="/book/[a-z0-9]+"/>
         <processors>
-            <processor xpath="/html/body/div[5]/div[2]/div/table/tbody/tr/td[1]/div/div/div[2]/div[1]" op="save" tag="author"/>
-            <processor xpath="/html/body/div[5]/div[2]/div/table/tbody/tr/td[1]/div/div/div[2]/div[2]" op="save" tag="press"/>
-            <processor xpath="/html/body/div[5]/div[2]/div/table/tbody/tr/td[1]/div/div/div[2]/div[3]" op="save" tag="isbn"/>
-            <processor xpath="/html/body/div[5]/div[2]/div/table/tbody/tr/td[3]/div[1]/img" op="saveUrl" tag="imageUrl"/>
-            <processor xpath="/html/body/div[5]/div[2]/div/table/tbody/tr/td[1]/div/div/div[1]" op="save" tag="title"/>
-            <processor xpath="/html/body/div[5]/div[2]/div/table/tbody/tr/td[3]/div[3]" op="save" tag="Evaluation"/>
+            <processor xpath="/html/body/div[5]/div[2]/div/table/tbody/tr/td[1]/div/div/div[2]/div[1]" op="save" tag="author" require="true"/>
+            <processor xpath="/html/body/div[5]/div[2]/div/table/tbody/tr/td[1]/div/div/div[2]/div[2]" op="save" tag="press" require="false"/>
+            <processor xpath="/html/body/div[5]/div[2]/div/table/tbody/tr/td[1]/div/div/div[2]/div[3]" op="save" tag="isbn" require="false"/>
+            <processor xpath="/html/body/div[5]/div[2]/div/table/tbody/tr/td[3]/div[1]/img" op="saveUrl" tag="imageUrl" require="true"/>
+            <processor xpath="/html/body/div[5]/div[2]/div/table/tbody/tr/td[1]/div/div/div[1]" op="save" tag="title" require="true"/>
+            <processor xpath="/html/body/div[5]/div[2]/div/table/tbody/tr/td[3]/div[3]" op="save" tag="Evaluation" require="true"/>
             <processor xpath="//*[@id='bookDescriptionShort']" op="save" tag="desc"/>
-            <!--<processor xpath="/html/body/div[5]/div[2]/div/table/tbody/tr/td[3]/div[2]/div[*]/a" op="grab" tag="href"/>-->
+            &lt;!&ndash;<processor xpath="/html/body/div[5]/div[2]/div/table/tbody/tr/td[3]/div[2]/div[*]/a" op="grab" tag="href"/>&ndash;&gt;
         </processors>
-    </url>
+    </url>-->
 <!--    <url>
         <saver val="SaveToEs" path="arch/article"/>
         <matcher host="www.chinadaily.com.cn" path="index\.html"/>

@@ -20,19 +20,6 @@ public class Processor {
     @XStreamAsAttribute
     String val;
 
-    public String getXpath() {
-        return xpath;
-    }
-
-    public String getOp() {
-        return op;
-    }
-
-    public String getTag() {
-        return tag;
-    }
-
-    public String getVal() {
-        return val;
-    }
+    @XStreamAsAttribute
+    boolean require;
 }

@@ -3,26 +3,31 @@ package name.dengchao.spider.spider;
 import com.gargoylesoftware.htmlunit.FailingHttpStatusCodeException;
 import com.gargoylesoftware.htmlunit.WebClient;
 import com.gargoylesoftware.htmlunit.WebRequest;
+import com.gargoylesoftware.htmlunit.html.HtmlElement;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
-import org.apache.regexp.RE;
 import org.junit.Test;
 
 import java.io.IOException;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.util.Base64;
+import java.util.List;
 
 public class HtmlPageTest {
     @Test
     public void testGetByXpath() throws IOException, InterruptedException {
-        WebRequest request = new WebRequest(new URL("http://www.xiaohuasheng.cn/read/userbooklist_2018"));
+        WebRequest request = new WebRequest(new URL("http://www.xiaohuasheng.cn/read/booklist_1/age_-1"));
         WebClient webClient = new WebClient();
         HtmlPage page = webClient.getPage(request);
+        Thread.sleep(1000);
+        System.out.println(page.getReadyState());
         System.out.println(page.getTitleText());
         System.out.println(page.getBody().asXml().length());
-        Thread.sleep(100);
-        System.out.println(page.getByXPath("/html/body/div[5]/div[2]/div/table/tbody/tr/td[1]/div/div[3]/div[*]/div[1]/a"));
+        System.out.println(page.getByXPath("/html/body/div[5]/div[2]/div/table/tbody/tr/td[3]/div[2]/a"));
+        List<HtmlElement> eles = page.getByXPath("/html/body/div[5]/div[2]/div/table/tbody/tr/td[1]/div/div/div[3]/div[*]/div[1]/a");
+        eles.stream().forEach(e -> {
+            System.out.println(e.getTextContent());
+        });
 //        System.out.println(page.getByXPath("/html/body/div[5]/div[2]/div/table/tbody/tr/td[3]/div[2]/div[*]/a"));
     }
 

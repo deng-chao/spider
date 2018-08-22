@@ -6,10 +6,7 @@ import com.google.common.hash.BloomFilter;
 import com.google.common.hash.Funnels;
 import com.google.common.io.Files;
 import com.thoughtworks.xstream.XStream;
-import name.dengchao.spider.domain.SaverConverter;
-import name.dengchao.spider.domain.Url;
-import name.dengchao.spider.domain.UrlMatcher;
-import name.dengchao.spider.domain.Urls;
+import name.dengchao.spider.domain.*;
 import org.apache.http.client.config.RequestConfig;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.springframework.beans.factory.InitializingBean;
@@ -24,9 +21,11 @@ import org.springframework.core.io.Resource;
 
 import java.io.*;
 import java.nio.charset.StandardCharsets;
+import java.util.Date;
 import java.util.List;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
+import java.util.stream.Collectors;
 
 @Configuration
 @ComponentScan("name.dengchao.spider")
@@ -34,12 +33,20 @@ public class SpiderConfig implements InitializingBean {
 
     @Autowired
     SaverConverter saverConverter;
+    @Value("#{iter['to-visit-url.path']}")
+    String toVisitUrlFile;
+    @Value("#{iter['starter.path']}")
+    String startPoint;
+    @Value("#{iter['filter-file.path']}")
+    String filterFilePath;
+    @Autowired
+    MyShutdownHook shutdownHook;
 
     @Bean(name = "urlMap")
     public Multimap<UrlMatcher, Url> map() throws IOException {
 
         XStream xs = new XStream();
-        xs.processAnnotations(new Class[] { Urls.class });
+        xs.processAnnotations(new Class[]{Urls.class});
         xs.registerConverter(saverConverter);
         Urls config = new Urls();
         Resource res = new ClassPathResource("NewFile.xml");
@@ -59,33 +66,28 @@ public class SpiderConfig implements InitializingBean {
         return multimap;
     }
 
-    @Value("#{iter['to-visit-url.path']}")
-    String toVisitUrlFile;
-
-    @Value("#{iter['starter.path']}")
-    String startPoint;
-
     @Bean(name = "urlQueue")
-    public BlockingQueue<String> urlQueue() throws Exception {
-        BlockingQueue<String> queue = new LinkedBlockingQueue<>();
+    public BlockingQueue<ToVisitLink> urlQueue() throws Exception {
+        BlockingQueue<ToVisitLink> queue = new LinkedBlockingQueue<>();
         File f = new File(toVisitUrlFile);
         if (!f.exists()) {
             f.getParentFile().mkdirs();
             f.createNewFile();
         }
-        queue.addAll(Files.readLines(f, StandardCharsets.UTF_8));
+        queue.addAll(Files.readLines(f, StandardCharsets.UTF_8).stream().
+                map(link -> new ToVisitLink(link, "to-visit-url-data", new Date())).
+                collect(Collectors.toList()));
 
         File startPointFile = new File(startPoint);
         if (!startPointFile.exists()) {
             startPointFile.getParentFile().mkdirs();
             startPointFile.createNewFile();
         }
-        queue.addAll(Files.readLines(startPointFile, StandardCharsets.UTF_8));
+        queue.addAll(Files.readLines(startPointFile, StandardCharsets.UTF_8).stream().
+                map(link -> new ToVisitLink(link, "start-point", new Date())).
+                collect(Collectors.toList()));
         return queue;
     }
-
-    @Value("#{iter['filter-file.path']}")
-    String filterFilePath;
 
     @Bean
     public BloomFilter<CharSequence> visitedUrlFilter() throws IOException {
@@ -117,9 +119,6 @@ public class SpiderConfig implements InitializingBean {
                 .setConnectionRequestTimeout(60_000).build();
         return HttpClientBuilder.create().setDefaultRequestConfig(reqconfig);
     }
-
-    @Autowired
-    MyShutdownHook shutdownHook;
 
     @Override
     public void afterPropertiesSet() throws Exception {

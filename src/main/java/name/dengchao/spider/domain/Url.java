@@ -1,33 +1,33 @@
 package name.dengchao.spider.domain;
 
-import java.util.List;
-
 import com.thoughtworks.xstream.annotations.XStreamAlias;
+
+import java.util.List;
 
 @XStreamAlias("url")
 public class Url {
 
-	UrlMatcher matcher;
-	
-	Request request;
-	
-	Saver saver;
-	
-	List<Processor> processors;
+    UrlMatcher matcher;
 
-	public UrlMatcher getMatcher() {
-		return matcher;
-	}
+    Request request;
 
-	public Request getRequest() {
-		return request;
-	}
+    Saver saver;
 
-	public List<Processor> getProcessors() {
-		return processors;
-	}
+    List<Processor> processors;
 
-	public Saver getSaver() {
-		return saver;
-	}
+    public UrlMatcher getMatcher() {
+        return matcher;
+    }
+
+    public Request getRequest() {
+        return request;
+    }
+
+    public List<Processor> getProcessors() {
+        return processors;
+    }
+
+    public Saver getSaver() {
+        return saver;
+    }
 }

@@ -2,13 +2,13 @@ package name.dengchao.spider.monitor;
 
 public interface MonitorMBean {
 
-  int getToVisitUrlsSize();
+    int getToVisitUrlsSize();
 
-  String getBloomFilterSize();
+    String getBloomFilterSize();
 
-  long getGrapedSize();
+    long getGrapedSize();
 
-  void addToVisitUrl(String url);
-  
-  void exit(int sign) throws Exception;
+    void addToVisitUrl(String url);
+
+    void exit(int sign) throws Exception;
 }

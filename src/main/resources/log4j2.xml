@@ -2,7 +2,7 @@
 <!-- status=debug 可以查看log4j的装配过程 -->
 <configuration status="OFF" monitorInterval="1800">
     <properties>
-        <property name="LOG_PATH">/home/logs</property>
+        <property name="LOG_PATH">/home</property>
         <property name="project_name">spider</property>
         <property name="pattern">[%level] [%date{ISO8601}] [%logger] [%thread] [] [%X{requestId}] [%X{serverIp}] %msg%n
         </property>

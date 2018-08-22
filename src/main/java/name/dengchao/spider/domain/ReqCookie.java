@@ -6,17 +6,17 @@ import com.thoughtworks.xstream.annotations.XStreamAsAttribute;
 @XStreamAlias("cookie")
 public class ReqCookie {
 
-	@XStreamAsAttribute
-	String key;
+    @XStreamAsAttribute
+    String key;
 
-	@XStreamAsAttribute
-	String val;
+    @XStreamAsAttribute
+    String val;
 
-	public String getKey() {
-		return key;
-	}
+    public String getKey() {
+        return key;
+    }
 
-	public String getVal() {
-		return val;
-	}
+    public String getVal() {
+        return val;
+    }
 }

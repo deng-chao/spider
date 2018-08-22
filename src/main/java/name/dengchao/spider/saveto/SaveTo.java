@@ -4,14 +4,14 @@ import com.alibaba.fastjson.JSONObject;
 
 /**
  * The implementions of this interface should have a default constructor,
- * @author Administrator
  *
+ * @author Administrator
  */
 public interface SaveTo {
-	
-	void save(JSONObject json) throws Exception;
-	
-	void setPath(String path);
-	
-	void initial() throws Exception;
+
+    void save(JSONObject json) throws Exception;
+
+    void setPath(String path);
+
+    void initial() throws Exception;
 }
